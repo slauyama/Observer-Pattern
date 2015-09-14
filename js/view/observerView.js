@@ -44,6 +44,8 @@ define(function(require) {
         },
 
         _updateActiveButton: function(isSubscribed) {
+            // Toggle Button only accepts bool or string as second parameter
+            // therefore !!isSubscribed is the only way to get value
             this.ui.subscribeButton.toggleClass('active', !!isSubscribed);
             this.ui.unsubscribeButton.toggleClass('active', !isSubscribed);
         }
