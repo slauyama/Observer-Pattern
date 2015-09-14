@@ -44,7 +44,6 @@ define(function(require) {
         },
 
         _updateActiveButton: function(isSubscribed) {
-            debugger;
             this.ui.subscribeButton.toggleClass('active', !!isSubscribed);
             this.ui.unsubscribeButton.toggleClass('active', !isSubscribed);
         }
