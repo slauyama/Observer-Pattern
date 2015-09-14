@@ -11,15 +11,7 @@ define(function(require) {
         template: _.template(ObserversTemplate),
 
         childView: ObserverView,
-        childViewContainer: '.panel-body',
-
-        // Marionette Methods
-        // ------------------
-        childViewOptions: function() {
-            return {
-                subject: this.options.subject
-            };
-        }
+        childViewContainer: '.panel-body'
     });
 
     return ObserversView;
