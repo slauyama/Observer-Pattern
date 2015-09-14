@@ -1,0 +1,10 @@
+subject interface ---> observer interface  
+      ^                     ^   
+      ^                     ^
+      ^                     ^   
+      ^                     ^
+      ^                     ^   
+      ^                     ^
+      ^                     ^   
+      ^                     ^ 
+subject model  <---  observer Model
