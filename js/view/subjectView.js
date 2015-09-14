@@ -27,13 +27,6 @@ define(function(require) {
 
         // Public Functions
         // ----------------
-        addObserver: function(observer) {
-            this.triggerMethod('addObserver', observer);
-        },
-
-        removeObserver: function(observer) {
-            this.triggerMethod('removeObserver', observer);
-        },
 
         // Private Functions
         // -----------------
