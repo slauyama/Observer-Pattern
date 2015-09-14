@@ -8,7 +8,7 @@ define(function(require) {
         // ---------------------
         defaults: function() {
             return {
-                observerCollection: new Observers(),
+                observers: new Observers(),
                 // isChanged is a property that signifies 
                 // whether the model has been changed or not
                 isChanged: false
@@ -27,11 +27,11 @@ define(function(require) {
 
         // Only notify the observers to update when the model is changed
         notifyObservers: function() {
-            if (this.model.get('isChanged')) {
+            if (this.get('isChanged')) {
                 var data = new Date();
                 this.get('observers').invoke('update', data);
             }
-            this.model.set('isChanged', false);
+            this.set('isChanged', false);
         }
     });
 
