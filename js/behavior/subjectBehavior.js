@@ -2,19 +2,19 @@ define(function(require) {
     'use strict';
 
     var SubjectBehavior = Marionette.Behavior.extend({
-        // // Private Properties
-        // // ------------------
+        // Private Properties
+        // ------------------
         _changed: false,
         _observers: null,
 
-        // // Marionette Functions
-        // // --------------------
+        // Marionette Methods
+        // ------------------
         initialize: function() {
             this._observers = [];
         },
 
-        // // Private Functions
-        // // -----------------
+        // Public Methods
+        // --------------
         onAddObserver: function(observer) {
             this._observers.push(observer);
         },

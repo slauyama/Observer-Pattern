@@ -1,6 +1,9 @@
 define(function(require) {
     'use strict';
 
+    var ConcreteObservers = require('collection/concreteObservers');
+    var ConcreteObserver = require('model/concreteObserver');
+    var ConcreteSubject = require('model/concreteSubject');
     var ObserverView = require('view/observerView');
     var ObserversView = require('view/observersView');
     var SubjectView = require('view/subjectView');
@@ -22,6 +25,7 @@ define(function(require) {
         // Marionette Functions
         // --------------------
         initialize: function() {
+            this._createModels();
             this._createViews();
         },
 
@@ -33,27 +37,35 @@ define(function(require) {
 
         // Private Functions
         // -----------------
+        _createModels: function() {
+            this.concreteSubject = new ConcreteSubject()
+
+            this.concreteObserver = new ConcreteObserver({
+                subject: this.concreteSubject
+            });
+
+            this.concreteObservers = new ConcreteObservers([{
+                id: 1,
+            }, {
+                id: 2,
+            }, {
+                id: 3,
+            }], {
+                subject: this.concreteSubject
+            })
+        },
+
         _createViews: function() {
-            this.subjectView = new SubjectView();
+            this.subjectView = new SubjectView({
+                model: this.concreteSubject
+            });
 
             this.observerView = new ObserverView({
-                model: new Backbone.Model({
-                    id: 1,
-                    subscribed: null
-                }),
-                subject: this.subjectView
+                model: this.concreteObserver
             });
 
             this.observersView = new ObserversView({
-                collection: new Backbone.Collection([{
-                    id: 1,
-                    subscribed: null
-                }, {
-                    id: 2,
-                    subscribed: null
-                }]),
-
-                subject: this.subjectView
+                collection: this.concreteObservers
             });
         },
 

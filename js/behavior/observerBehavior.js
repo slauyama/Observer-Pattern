@@ -12,8 +12,8 @@ define(function(require) {
 
         // Public Functions
         // ----------------
-        onUpdate: function(newDate) {
-            this.options.update(newDate);
+        onUpdate: function(data) {
+            this.options.update(data);
         }
     });
 

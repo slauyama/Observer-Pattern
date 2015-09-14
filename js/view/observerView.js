@@ -1,7 +1,6 @@
 define(function(require) {
     'use strict';
 
-    var ObserverBehavior = require('behavior/observerBehavior');
     var ObserverTemplate = require('text!template/observer.html');
 
     var ObserverView = Marionette.ItemView.extend({
@@ -22,61 +21,34 @@ define(function(require) {
         },
 
         modelEvents: {
+            'change:data': 'render',
             'change:subscribed': '_onChangeSubscribed'
         },
 
-        // Private Properties
-        // ------------------
-        _subject: null,
-
-        // Mariontte Functions
-        // -------------------
-        behaviors: function() {
-            return {
-                Observer: {
-                    behaviorClass: ObserverBehavior,
-                    update: this._update.bind(this)
-                }
-            };
-        },
-
-        initialize: function() {
-            if (_.isUndefined(this.options.subject)) {
-                throw new Error('subject is not passed in.');
-            }
-
-            this._subject = this.options.subject;
-        },
-
         onRender: function() {
-            this.model.set('subscribed', true);
+            this._updateActiveButton(this.model.get('subscribed'));
         },
 
-        // Private Functions
-        // -----------------
-        _update: function(newDate) {
-            this.ui.timeLocation.text(newDate);
-        },
-
-        _onChangeSubscribed: function(model, isSubscibed) {
-            this.ui.subscribeButton.toggleClass('active', isSubscibed)
-            this.ui.unsubscribeButton.toggleClass('active', !isSubscibed)
-
-            if (isSubscibed) {
-                this._subject.addObserver(this);
-            } else {
-                this._subject.removeObserver(this);
-            }
+        // Private Methods
+        // -------------------
+        _onClickUnsubscribe: function() {
+            this.model.set('subscribed', false);
         },
 
         _onClickSubscribe: function() {
             this.model.set('subscribed', true);
-
         },
 
-        _onClickUnsubscribe: function() {
-            this.model.set('subscribed', false);
+        _onChangeSubscribed: function(model, isSubscribed) {
+            this._updateActiveButton(isSubscribed);
+        },
+
+        _updateActiveButton: function(isSubscribed) {
+            debugger;
+            this.ui.subscribeButton.toggleClass('active', !!isSubscribed);
+            this.ui.unsubscribeButton.toggleClass('active', !isSubscribed);
         }
+
     });
 
     return ObserverView;
