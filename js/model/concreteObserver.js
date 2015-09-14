@@ -5,30 +5,34 @@ define(function(require) {
 
     var ConcreteObserver = Observer.extend({
         // Marionette Properties
+        // ---------------------
         defaults: {
             subject: null,
+            subscribed: null,
             data: ''
         },
 
         // Marionette Methods
         // ------------------
-        initialize: function(attributes) {
-            debugger
+        initialize: function() {
+            this.on('change:subscribed', this._onChangeSubscribed);
         },
 
         // Public Methods
         // --------------
-        subscribe: function() {
-            this.model.get('subject').addObserver(this)
-        },
-
-        unsubscribe: function() {
-            this.model.get('subject').removeObserver(this)
-        },
-
-        // Need to define update method
         update: function(data) {
-            this.model.set('data', data)
+            this.set('data', data)
+        },
+
+        // Private Methods
+        // ---------------
+        _onChangeSubscribed: function(model, isSubscribed) {
+            var subject = this.get('subject');
+            if (isSubscribed) {
+                subject.addObserver(this);
+            } else {
+                subject.removeObserver(this);
+            }
         }
     });
 
