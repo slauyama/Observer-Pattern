@@ -9,7 +9,6 @@ define(function(require) {
         // Marionette Methods
         // ------------------
         initialize: function(observers, options) {
-            debugger;
             if (_.isObject(options.subject)) {
                 _.each(observers, function(observer) {
                     observer.subject = options.subject;
