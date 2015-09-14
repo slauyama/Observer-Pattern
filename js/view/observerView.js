@@ -25,6 +25,10 @@ define(function(require) {
             'change:subscribed': '_onChangeSubscribed'
         },
 
+        onRender: function() {
+            this._updateActiveButton(this.model.get('subscribed'));
+        },
+
         // Private Methods
         // -------------------
         _onClickUnsubscribe: function() {
@@ -36,7 +40,12 @@ define(function(require) {
         },
 
         _onChangeSubscribed: function(model, isSubscribed) {
-            this.ui.subscribeButton.toggleClass('active', isSubscribed);
+            this._updateActiveButton(isSubscribed);
+        },
+
+        _updateActiveButton: function(isSubscribed) {
+            debugger;
+            this.ui.subscribeButton.toggleClass('active', !!isSubscribed);
             this.ui.unsubscribeButton.toggleClass('active', !isSubscribed);
         }
 
