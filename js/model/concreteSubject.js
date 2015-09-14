@@ -5,9 +5,7 @@ define(function(require) {
 
     var ConcreteSubject = Subject.extend({
         defaults: function() {
-            var concreteSubjectProperties = {
-
-            }
+            var concreteSubjectProperties = {};
             return _.extend(concreteSubjectProperties, _.result(Subject.prototype, 'defaults'));
         }
     });
