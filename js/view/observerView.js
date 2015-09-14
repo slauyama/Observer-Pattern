@@ -1,7 +1,6 @@
 define(function(require) {
     'use strict';
 
-    var ObserverBehavior = require('behavior/observerBehavior');
     var ObserverTemplate = require('text!template/observer.html');
 
     var ObserverView = Marionette.ItemView.extend({
@@ -17,29 +16,29 @@ define(function(require) {
         },
 
         events: {
-            // 'click @ui.unsubscribeButton': '_onClickUnsubscribe',
-            // 'click @ui.subscribeButton': '_onClickSubscribe'
+            'click @ui.unsubscribeButton': '_onClickUnsubscribe',
+            'click @ui.subscribeButton': '_onClickSubscribe'
         },
 
+        modelEvents: {
+            'change:data': 'render',
+            'change:subscribed': '_onChangeSubscribed'
+        },
 
-        // Mariontte Functions
+        // Private Methods
         // -------------------
-        behaviors: function() {
-            return {
-                Observer: {
-                    behaviorClass: ObserverBehavior,
-                    update: this._update.bind(this)
-                }
-            };
+        _onClickUnsubscribe: function() {
+            this.model.set('subscribed', false);
         },
 
-        initialize: function() {
-            if (_.isUndefined(this.options.subject)) {
-                throw new Error('subject is not passed in.');
-            }
+        _onClickSubscribe: function() {
+            this.model.set('subscribed', true);
         },
 
-        onRender: function() {},
+        _onChangeSubscribed: function(model, isSubscribed) {
+            this.ui.subscribeButton.toggleClass('active', isSubscribed);
+            this.ui.unsubscribeButton.toggleClass('active', !isSubscribed);
+        }
 
     });
 

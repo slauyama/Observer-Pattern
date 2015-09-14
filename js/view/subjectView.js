@@ -1,7 +1,6 @@
 define(function(require) {
     'use strict';
 
-    var SubjectBehavior = require('behavior/subjectBehavior');
     var SubjectTemplate = require('text!template/subject.html');
 
     var SubjectView = Marionette.ItemView.extend({
@@ -11,12 +10,6 @@ define(function(require) {
 
         template: _.template(SubjectTemplate),
 
-        behaviors: {
-            Subject: {
-                behaviorClass: SubjectBehavior
-            }
-        },
-
         ui: {
             notifyObserversButton: '[data-ui=notify-observers-button]'
         },
@@ -25,14 +18,11 @@ define(function(require) {
             'click @ui.notifyObserversButton': '_onClickNotifyObserversButton'
         },
 
-        // Public Functions
-        // ----------------
-
         // Private Functions
         // -----------------
         _onClickNotifyObserversButton: function() {
-            this.triggerMethod('setChanged');
-            this.triggerMethod('notifyObservers');
+            this.model.set('isChanged', true);
+            this.model.notifyObservers();
         }
     });
 
